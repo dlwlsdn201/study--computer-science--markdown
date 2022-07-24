@@ -221,6 +221,88 @@
 >> 않기에 상위 모듈에서 큰 코드 변경 없이 기능 변경을 할 수 있게 된다**.
 >> ```
 
+## 3.  전략 패턴
+
+>### 설명
+>
+>- 정책 패턴이라고도 하며 객체의 행위를 바꾸고 싶은 경우 ‘직접' 수정하지 않고 전략이라고 부르는 ‘캡슐화한 알고리즘'을 컨텍스트 안에서 바꿔주면서 상호 교체가 가능하게 만드는 패턴이다.
+>
+>>![image](https://user-images.githubusercontent.com/53039583/180637347-9b031a2e-4129-4f2d-b2d4-9be1bd37d69a.png)
+>
+>```jsx
+>/** (예시)
+>  하나의 동물을 input 으로 받아서 말을 가르치는 함수가 있다.
+>  그 동물은 고양이가 될 수도 있고 사자가 될 수도 있다.
+>
+>  고양이일 경우 -> Meaw
+>  사자일 경우 -> Vow
+>
+>  이 메인 기능 함수 안에서는 어떤 동물인지 판별하는 즉, if 문같은 코드는 존재하지 않는다.
+>  대신 동물의 유형은 '전략'이라고 불리는 인터페이스 함수로 정의한다.
+>  */
+>
+>class Animal {
+>	static speak() {
+>		return true;
+>	}
+>}
+>
+>class Cat extends Animal {
+>	speak() {
+>		console.log('meow');
+>	}
+>}
+>
+>class Lion extends Animal {
+>	speak() {
+>		console.log('vow');
+>	}
+>}
+>
+>// 뼈대 함수(핵심 함수)
+>function makeSpeak(animal) {
+>	animal.speak();
+>}
+>
+>// 인터페이스 함수 ('전략' 이라고 부르는 캡슐화한 알고리즘)
+>function createAnimal(data) {
+>	if (data === 'cat') {
+>		return new Cat();
+>	} else if (data === 'lion') {
+>		return new Lion();
+>	}
+>}
+>
+>const userInput = prompt('cat ? lion ? :');
+>const animal = createAnimal(userInput);
+>makeSpeak(animal);
+>```
+>
+## 4. 옵저버 패턴
+
+>### 설명
+>
+>- 주체가 어떤 객체(subject)의 상태 변화를 관찰하다가 상태 변화가 있을 때마다 메서드 등을 통해 옵저버 목록에 있는 옵저버들에게 변화를 알려주는 디자인 패턴이다.
+>    - **주체** : 객체의 상태 변화를 보고 있는 관찰자
+>    - **옵저버** : 이 객체의 상태 변화에 따라 전달되는 메서드 등을 기반으로 ‘추가 변화 사항'이 생기는 객체
+>    
+>- 옵저버 패턴은 크게 두 가지 방식이 있다.
+>    - 객체와 주체가 분리되어 있는 옵저버 패턴
+>    - 객체와 주체가 합쳐진 옵저버 패턴
+>
+>>![image](https://user-images.githubusercontent.com/53039583/180637359-d1331a4d-ee91-4691-abe3-11a7f4b4d9d4.png)
+>>![image](https://user-images.githubusercontent.com/53039583/180637367-414f6adf-28a0-4a97-bede-18ade2d530b3.png)
+>
+>- 옵저버 패턴을 활용한 서비스의 예로는 **트위터**, **인스타그램** 등이 있다.
+>    - 내가 어떤 사람인 주체를 ‘팔로우' 했다면 주체가 포스팅을 올리게 되었을 때 알림이 ‘팔로워' 에게 간다.
+>
+>>![image](https://user-images.githubusercontent.com/53039583/180637375-bb4b5c23-7447-4bc5-9561-d69a7a1b5d3d.png)
+>
+>- 옵저버 패턴은 주로 **이벤트 기반 시스템**에 사용하며 **MVC(Model-View-Controller)** 패턴에도 사용된다. 
+>예를 들어 주체라고 볼 수 있는 모델(M)에서 변경사항이 생겨 `update()` 메서드로 옵저버인 뷰(V)에 알려주고 이를 기반으로 컨트롤러(C)등이 작동하는 것이다.
+>
+>>![image](https://user-images.githubusercontent.com/53039583/180637380-d9ce416d-8687-4944-b23d-5b161df6b31c.png)
+>
 ---
 ## 디자인 패턴은 만병통치약이 아니다
 
